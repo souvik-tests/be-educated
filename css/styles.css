@@ -75,6 +75,9 @@ body{
     width: 100%;
     aspect-ratio: 16 / 9;
     background: #ddd;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }.category-card{
     border-radius: 7px;
     box-shadow: 1px 1px 10px rgba(0,0,0,0.2);
@@ -96,9 +99,12 @@ body{
 }.course-apply-video{
     width: 100%;
     aspect-ratio: 16 / 9;
-    background: #ddd;
     border-radius: 10px;
+    background: #ddd;
     display: flex; align-items: center; justify-content: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }.apply-video-play{
     height: 50px;
     width: 50px;

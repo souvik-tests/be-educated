@@ -31,4 +31,6 @@ echo '<div class="w-100 pt-4 pb-4" style="background: #ffffff;">
         </div>  
     </div>';
 
+echo '<script>let current_url=location.href;/*$.ajax({type:"GET",url:"https://www.uttirnaedu.com/_template/_req_to/_track_visitor.php?url="+current_url,success:function(data){console.log(data);}});*/</script>';
+
 ?>

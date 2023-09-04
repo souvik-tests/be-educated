@@ -1,3 +1,6 @@
+<?php
+include './_config/_conn.php';
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -30,58 +33,26 @@
         <h3 class="text-center mb-4" style="color: #0B7259;"><b>Popular Courses</b></h3>
         <div class="container">
             <div class="popular-carousel">
-                <div class="carousel-cell me-3">
-                    <div class="card course-card">
-                        <div class="card-thumb"></div>
+                <?php
+                
+                $popular = mysqli_query($conn, "SELECT * FROM `course_lists` ORDER BY `created_at` DESC LIMIT 8");
+                while($popular_row = mysqli_fetch_assoc($popular)){
+                    echo '<div class="carousel-cell me-3">
+                    <div class="card course-card" onclick="location.href=&apos;./course?id='.$popular_row['course_id'].'&apos;" style="cursor: pointer;">
+                        <div class="card-thumb" style="background-image: url(./_data/_images/'.$popular_row['course_id'].'-thumbnail.webp)"></div>
                         <div class="card-body p-2">
-                            <div class="w-100"><b>Title of course</b></div>
-                            <div class="w-100" style="font-size: 12px; color: #666;"><i class="bi bi-stopwatch" style="color: #F6635C;"></i>&nbsp;&nbsp;3 weeks</div>
+                            <div class="w-100"><b>'.$popular_row['title'].'</b></div>
+                            <div class="w-100 mt-1" style="font-size: 12px; color: #666;"><i class="bi bi-stopwatch" style="color: #F6635C;"></i>&nbsp;&nbsp;'.$popular_row['time_to_complete'].'</div>
                             <div class="w-100 mt-2" style="display: flex; align-items: center;">
-                                <img src="https://dummyimage.com/512x512" height="30px" width="30px" style="border-radius: 30px; padding: 2px;">
-                                <span style="font-size: 12px;" class="ms-1">Company Inc.</span>
+                                <img src="./_data/_images/'.$popular_row['course_id'].'-company_logo.webp" height="30px" width="30px" style="border-radius: 30px; padding: 2px;">
+                                <span style="font-size: 12px;" class="ms-1">'.$popular_row['offered_by'].'</span>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="carousel-cell me-3">
-                    <div class="card course-card">
-                        <div class="card-thumb"></div>
-                        <div class="card-body p-2">
-                            <div class="w-100"><b>Title of course</b></div>
-                            <div class="w-100" style="font-size: 12px; color: #666;"><i class="bi bi-stopwatch" style="color: #F6635C;"></i>&nbsp;&nbsp;3 weeks</div>
-                            <div class="w-100 mt-2" style="display: flex; align-items: center;">
-                                <img src="https://dummyimage.com/512x512" height="30px" width="30px" style="border-radius: 30px; padding: 2px;">
-                                <span style="font-size: 12px;" class="ms-1">Company Inc.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-cell me-3">
-                    <div class="card course-card">
-                        <div class="card-thumb"></div>
-                        <div class="card-body p-2">
-                            <div class="w-100"><b>Title of course</b></div>
-                            <div class="w-100" style="font-size: 12px; color: #666;"><i class="bi bi-stopwatch" style="color: #F6635C;"></i>&nbsp;&nbsp;3 weeks</div>
-                            <div class="w-100 mt-2" style="display: flex; align-items: center;">
-                                <img src="https://dummyimage.com/512x512" height="30px" width="30px" style="border-radius: 30px; padding: 2px;">
-                                <span style="font-size: 12px;" class="ms-1">Company Inc.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-cell me-3">
-                    <div class="card course-card">
-                        <div class="card-thumb"></div>
-                        <div class="card-body p-2">
-                            <div class="w-100"><b>Title of course</b></div>
-                            <div class="w-100" style="font-size: 12px; color: #666;"><i class="bi bi-stopwatch" style="color: #F6635C;"></i>&nbsp;&nbsp;3 weeks</div>
-                            <div class="w-100 mt-2" style="display: flex; align-items: center;">
-                                <img src="https://dummyimage.com/512x512" height="30px" width="30px" style="border-radius: 30px; padding: 2px;">
-                                <span style="font-size: 12px;" class="ms-1">Company Inc.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div>';
+                }
+                
+                ?>
             </div>
         </div>  
     </div>

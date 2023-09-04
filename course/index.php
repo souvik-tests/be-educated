@@ -1,9 +1,20 @@
+<?php
+if(isset($_GET['id'])){
+    include '../_config/_conn.php';
+    
+    $course_id = $_GET['id'];
+    $result = mysqli_query($conn, "SELECT * FROM `course_lists` WHERE `course_id` = '$course_id'");
+    $result_array = mysqli_fetch_array($result);
+}else{
+    header("Location: ../");
+}
+?>
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BeEducated</title>
+    <title><?php echo $result_array['title']; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <!-- flickity -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
@@ -19,21 +30,21 @@
     <div class="container mb-4" style="margin-top: 100px">
         <div class="row">
             <div class="col-md-6 mb-3">
-                <div class="w-100"><span style="background: #F6635C; border-radius: 30px; color: #ffffff; font-size: 14px; padding: 5px 10px;"><b>Course Category</b></span></div>
-                <h3 class="mt-4"><b>Professional Content Writing</b></h3>
+                <div class="w-100"><span style="background: #F6635C; border-radius: 30px; color: #ffffff; font-size: 14px; padding: 5px 10px;"><b><?php echo $result_array['category']; ?></b></span></div>
+                <h3 class="mt-4"><b><?php echo $result_array['title']; ?></b></h3>
                 <div class="w-100 mt-2" style="display: flex; align-items: center;">
-                    <img src="https://dummyimage.com/512x512" height="30px" width="30px" style="border-radius: 30px; padding: 2px;">
-                    <span style="font-size: 12px;" class="ms-1">Offered by <b>Company Inc.</b></span>
+                    <img src="../_data/_images/<?php echo $result_array['course_id']; ?>-company_logo.webp" height="30px" width="30px" style="border-radius: 30px; padding: 2px;">
+                    <span style="font-size: 12px;" class="ms-1">Offered by <b><?php echo $result_array['offered_by']; ?></b></span>
                 </div>
 
                 <p class="mt-4 mb-3"><b>Course Details</b></p>
-                <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen boo k. It has survived not only five centuries.</p>
+                <p class="text-muted"><?php echo $result_array['description']; ?></p>
             </div>  
             <div class="col-md-6 mb-3">
                 <div class="w-100" style="display: flex; justify-content: center;">
                     <div class="card course-apply-card">
                         <div class="card-body">
-                            <div class="course-apply-video"><div class="apply-video-play"><i class="bi bi-play-fill"></i></div></div>
+                            <div class="course-apply-video" style="background-image: url(../_data/_images/<?php echo $result_array['course_id']; ?>-thumbnail.webp);"><div class="apply-video-play"><i class="bi bi-play-fill"></i></div></div>
                             <div class="course-apply-yt"></div>
 
                             <div class="mb-3 mt-3">
