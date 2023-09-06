@@ -19,10 +19,10 @@ include('../_config/_conn.php');
     
     <nav class="navbar bg-body-tertiary" style="box-shadow: 1px 1px 10px rgba(0,0,0,0.1);">
       <div class="container">
-        <a class="navbar-brand" style="display: flex; align-items: center;">
-            <img src="../assets/logo2.webp" width="40" height="40">
+        <div class="navbar-brand" style="display: flex; align-items: center;">
+            <img src="../assets/logo2.webp" width="35" height="35">
             <b class="ms-2">Admin Panel</b>
-        </a>
+        </div>
       </div>
     </nav>
       

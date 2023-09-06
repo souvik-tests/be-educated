@@ -46,10 +46,10 @@ function time_elapsed_string($datetime, $full = false) {
       
     <nav class="navbar bg-body-tertiary" style="box-shadow: 1px 1px 10px rgba(0,0,0,0.1);">
       <div class="container">
-        <a class="navbar-brand" style="display: flex; align-items: center;">
-            <img src="../assets/logo2.webp" width="40" height="40">
+        <div class="navbar-brand" style="display: flex; align-items: center;">
+            <button class="btn btn-dark btn-sm" style="border-radius: 50px;" onclick="location.href='./'"><i class="bi bi-arrow-left"></i></button>
             <b class="ms-2">Courses</b>
-        </a>
+        </div>
       </div>
     </nav>
       
@@ -63,7 +63,7 @@ function time_elapsed_string($datetime, $full = false) {
                 while($a_row = mysqli_fetch_assoc($apps)){
                     echo '<div class="col-md-3 mb-3">
                     <div class="card app-card" style="position: relative;">
-                        <div class="p-2 m-2" style="position: absolute; top: 0; right: 0; background: #F6635C; border-radius: 5px; box-shadow: 1px 1px 10px rgba(0,0,0,0.2);"><button class="btn btn-light btn-sm"><i class="bi bi-pencil-fill"></i></button><button class="btn btn-light btn-sm ms-2"><i class="bi bi-trash-fill"></i></button></div>
+                        <div class="p-2 m-2" style="position: absolute; top: 0; right: 0; background: #ffffff; border-radius: 5px; box-shadow: 1px 1px 10px rgba(0,0,0,0.3);"><button class="btn btn-primary btn-sm"><i class="bi bi-pencil-fill"></i></button><button class="btn btn-danger btn-sm ms-2"><i class="bi bi-trash-fill"></i></button></div>
                         <div class="card-thumb" style="background-image: url(../_data/_images/'.$a_row['course_id'].'-thumbnail.webp)"></div>
                         <div class="card-body p-3">
                             <div class="row" style="align-items: center;">
@@ -86,37 +86,27 @@ function time_elapsed_string($datetime, $full = false) {
       
     <!-- createNewModal -->
     <form method="post" action="./_submit/_new.php"><div class="modal fade" id="createNew" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="createNewLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="createNewLabel">Publish Listing</h1>
+            <h1 class="modal-title fs-5" id="createNewLabel">New Course</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
               <div class="container">
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3" style="height: 400px; overflow-y: scroll;">
                         
-                        <input type="hidden" name="app_created_by" value="<?php echo $_SESSION['u_id']; ?>">
-                        
-                        <div class="mb-3"><label class="form-label"><b>Title</b></label><input type="text" class="form-control" name="app_name" required></div>
-                        
-                        <div class="app-logo mb-2"></div>
-                        
-                        <div class="mb-3"><label class="form-label"><b>App Logo (URL)</b></label><input type="text" class="form-control" name="app_logo" id="app_logo" required></div>
-                        
-                        <div class="app-banner mb-2"></div>
-                        
-                        <div class="mb-3"><label class="form-label"><b>Thumbnail (URL)</b></label><input type="text" class="form-control" name="app_banner" id="app_banner" required></div>
+                        <div class="mb-3"><label class="form-label"><b>Course Title</b></label><input type="text" class="form-control" name="title" id="course_title" required></div>
                         
                         <div class="mb-3">
-                            <label class="form-label"><b>App Description</b></label>
-                            <textarea class="form-control" style="height: 200px;" name="app_desc" required></textarea>
+                            <label class="form-label"><b>Course Description</b></label>
+                            <textarea class="form-control" style="height: 200px;" name="description" id="course_desc" required></textarea>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label"><b>App Category</b></label>
-                            <select class="form-select" name="app_category" style="width: 250px;" required>
+                            <label class="form-label"><b>Course Category</b></label>
+                            <select class="form-select" name="category" id="course_category" style="width: 250px;" required>
                                 <option value="Other" selected>-- No Select --</option>
                                 <option value="Finance">Finance</option>
                                 <option value="Technology">Technology</option>
@@ -127,22 +117,37 @@ function time_elapsed_string($datetime, $full = false) {
                             </select>
                         </div>
                         
-                        <div class="mb-3"><label class="form-label"><b>YouTube URL</b></label><input type="text" class="form-control" name="yt_url" id="yt_url"></div>
+                        <div class="mb-3"><label class="form-label"><b>Time to Complete</b></label><input type="text" class="form-control" name="time_to_complete" id="time_to_complete" style="width: 200px;" placeholder="e.g. 3 weeks" required></div>
+                        
+                        <div class="mb-3"><label class="form-label"><b>Offered by (Company Name)</b></label><input type="text" class="form-control" name="offered_by" id="offered_by" placeholder="e.g. Google Inc." required></div>
+                        
+                        <div class="app-logo mb-2"></div>
+                        
+                        <div class="mb-3"><label class="form-label"><b>Company Logo (URL)</b></label><input type="text" class="form-control" name="company_logo" id="company_logo" required></div>
+                        
+                        <div class="app-banner mb-2"></div>
+                        
+                        <div class="mb-3"><label class="form-label"><b>Course Thumbnail (URL)</b></label><input type="text" class="form-control" name="course_banner" id="course_banner" required></div>
+                        
+                        
+                        <div class="mb-3"><label class="form-label"><b><i class="bi bi-youtube" style="color: red;"></i>&nbsp;YouTube Video URL</b></label><input type="text" class="form-control" name="yt_url" id="yt_url" placeholder="e.g. https://www.youtube.com/watch?v=slFs42ax-Jg"></div>
                         
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="height: 400px; overflow-y: scroll;">
                         <div class="w-100" style="display: flex; justify-content: center;">
                             <div>
                                 <p><b>Preview</b></p>
-                                <div class="card app-card" style="position: relative; width: 300px">
-                                    <div class="card-image" id="preview_banner"></div>
-                                    <div class="card-body p-2">
-                                        <div class="row" style="align-items: center;">
-                                            <div class="col-2"><img src="https://dummyimage.com/512x512" id="preview_logo" height="40px" width="40px" style="border-radius: 40px;"></div>
-                                            <div class="col-10"><b>App Name</b></div>
-                                        </div>
+                                <div class="card course-card" style="cursor: pointer;">
+                                <div class="card-thumb" id="preview-thumb"></div>
+                                <div class="card-body p-2">
+                                    <div class="w-100"><b id="preview-title">Course Title</b></div>
+                                    <div class="w-100 mt-1" style="font-size: 12px; color: #666;"><i class="bi bi-stopwatch" style="color: #F6635C;"></i>&nbsp;&nbsp;<span id="preview-time">X time</span></div>
+                                    <div class="w-100 mt-2" style="display: flex; align-items: center;">
+                                        <img id="preview-c-logo" src="https://dummyimage.com/250x250" height="30px" width="30px" style="border-radius: 30px; padding: 2px;">
+                                        <span style="font-size: 12px;" class="ms-1" id="preview-c-name">Company Inc.</span>
                                     </div>
                                 </div>
+                            </div>
                                 
                                 <div class="mt-3">
                                     <p><b>YouTube Preview</b></p><iframe id="preview_yt" width="300" height="200" src="https://www.youtube.com/embed/"></iframe>
@@ -155,7 +160,7 @@ function time_elapsed_string($datetime, $full = false) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+            <button type="submit" class="btn btn-main btn-sm"><b>Submit</b></button>
           </div>
         </div>
       </div>
@@ -165,6 +170,28 @@ function time_elapsed_string($datetime, $full = false) {
         .form-control{
             border-radius: 0px;
         }  
+        .app-logo{
+            height: 100px;
+            width: 100px;
+            background: #ddd;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            border-radius: 7px;
+        }.app-banner{
+            width: 250px;
+            aspect-ratio: 16 / 9;
+            background: #ddd;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            border-radius: 7px;
+        }
+        .app-card{
+            border-radius: 0px;
+            border: 0px solid;
+            box-shadow: 1px 1px 10px rgba(0,0,0,0.2);
+        }
     </style>
       
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -180,24 +207,48 @@ function time_elapsed_string($datetime, $full = false) {
         
         $(document).ready(function(){
             
-            $("#app_logo").change(function(){
-                let app_logo = $("#app_logo").val();
+            $("#company_logo").change(function(){
+                let app_logo = $("#company_logo").val();
                 
                 $(".app-logo").css({backgroundImage: "url("+app_logo+")"});
-                $("#preview_logo").attr('src', app_logo);
+                $("#preview-c-logo").attr('src', app_logo);
             });
             
-            $("#app_banner").change(function(){
-                let app_banner = $("#app_banner").val();
+            $("#course_banner").change(function(){
+                let app_banner = $("#course_banner").val();
                 
                 $(".app-banner").css({backgroundImage: "url("+app_banner+")"});
-                $("#preview_banner").css({backgroundImage: "url("+app_banner+")"});
+                $("#preview-thumb").css({backgroundImage: "url("+app_banner+")"});
             });
             
             $("#yt_url").change(function(){
                 let yt_url = $("#yt_url").val();
                 
                 $('#preview_yt').attr('src', 'https://www.youtube.com/embed/'+youtube_parser(yt_url));
+            });
+            
+            $("#course_title").change(function(){
+               $("#preview-title").html($("#course_title").val()); 
+            });
+            
+            $("#course_title").keyup(function(){
+               $("#preview-title").html($("#course_title").val()); 
+            });
+            
+            $("#offered_by").change(function(){
+               $("#preview-c-name").html($("#offered_by").val()); 
+            });
+            
+            $("#offered_by").keyup(function(){
+               $("#preview-c-name").html($("#offered_by").val()); 
+            });
+            
+            $("#time_to_complete").change(function(){
+               $("#preview-time").html($("#time_to_complete").val()); 
+            });
+            
+            $("#time_to_complete").keyup(function(){
+               $("#preview-time").html($("#time_to_complete").val()); 
             });
         }) 
     </script>
