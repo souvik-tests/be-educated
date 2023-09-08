@@ -38,10 +38,10 @@ include './_config/_conn.php';
                 $popular = mysqli_query($conn, "SELECT * FROM `course_lists` ORDER BY `created_at` DESC LIMIT 8");
                 while($popular_row = mysqli_fetch_assoc($popular)){
                     echo '<div class="carousel-cell me-3">
-                    <div class="card course-card" onclick="location.href=&apos;./course?id='.$popular_row['course_id'].'&apos;" style="cursor: pointer;">
+                    <div class="card course-card h-100" onclick="location.href=&apos;./course?id='.$popular_row['course_id'].'&apos;" style="cursor: pointer;">
                         <div class="card-thumb" style="background-image: url(./_data/_images/'.$popular_row['course_id'].'-thumbnail.webp)"></div>
                         <div class="card-body p-2">
-                            <div class="w-100"><b>'.$popular_row['title'].'</b></div>
+                            <div class="w-100"><b class="text-deco-1">'.$popular_row['title'].'</b></div>
                             <div class="w-100 mt-1" style="font-size: 12px; color: #666;"><i class="bi bi-stopwatch" style="color: #F6635C;"></i>&nbsp;&nbsp;'.$popular_row['time_to_complete'].'</div>
                             <div class="w-100 mt-2" style="display: flex; align-items: center;">
                                 <img src="./_data/_images/'.$popular_row['course_id'].'-company_logo.webp" height="30px" width="30px" style="border-radius: 30px; padding: 2px;">
@@ -88,42 +88,19 @@ include './_config/_conn.php';
             </div> 
             <div class="col-md-6">
                 <div class="row">
-                    <div class="col-6 mb-3">
-                        <div class="category-card">
-                            <div class="category-image"></div>
-                            <div class="ms-2"><span><b>Category Name</b><br></span><span style="font-size: 12px; color: #E4433B;">35 courses</span></div>
-                        </div>
-                    </div>
-                    <div class="col-6 mb-3">
-                        <div class="category-card">
-                            <div class="category-image"></div>
-                            <div class="ms-2"><span><b>Category Name</b><br></span><span style="font-size: 12px; color: #E4433B;">35 courses</span></div>
-                        </div>
-                    </div>
-                    <div class="col-6 mb-3">
-                        <div class="category-card">
-                            <div class="category-image"></div>
-                            <div class="ms-2"><span><b>Category Name</b><br></span><span style="font-size: 12px; color: #E4433B;">35 courses</span></div>
-                        </div>
-                    </div>
-                    <div class="col-6 mb-3">
-                        <div class="category-card">
-                            <div class="category-image"></div>
-                            <div class="ms-2"><span><b>Category Name</b><br></span><span style="font-size: 12px; color: #E4433B;">35 courses</span></div>
-                        </div>
-                    </div>
-                    <div class="col-6 mb-3">
-                        <div class="category-card">
-                            <div class="category-image"></div>
-                            <div class="ms-2"><span><b>Category Name</b><br></span><span style="font-size: 12px; color: #E4433B;">35 courses</span></div>
-                        </div>
-                    </div>
-                    <div class="col-6 mb-3">
-                        <div class="category-card">
-                            <div class="category-image"></div>
-                            <div class="ms-2"><span><b>Category Name</b><br></span><span style="font-size: 12px; color: #E4433B;">35 courses</span></div>
-                        </div>
-                    </div>
+                    <?php
+                    
+                    $cat_lists = mysqli_query($conn, "SELECT DISTINCT cat.c_id, cat.title, COUNT(c.course_id) as courses, cat.created_at FROM category_lists as cat, course_lists as c WHERE cat.c_id = c.category_id GROUP BY cat.c_id ORDER BY cat.created_at DESC");
+                    while($ct_lst = mysqli_fetch_assoc($cat_lists)){
+                        echo '<div class="col-6 mb-3">
+                                <div class="category-card">
+                                    <div class="category-image" style="background-image: url(./_data/_images/'.$ct_lst['c_id'].'-category_banner.webp);"></div>
+                                    <div class="ms-2"><span><b>'.$ct_lst['title'].'</b><br></span><span style="font-size: 12px; color: #E4433B;">'.$ct_lst['courses'].' courses</span></div>
+                                </div>
+                            </div>';
+                    }
+                    
+                    ?>
                 </div>
             </div>
         </div> 

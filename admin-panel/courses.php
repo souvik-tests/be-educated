@@ -85,12 +85,12 @@ function time_elapsed_string($datetime, $full = false) {
     </div>
       
     <!-- createNewModal -->
-    <form method="post" action="./_submit/_new.php"><div class="modal fade" id="createNew" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="createNewLabel" aria-hidden="true">
+    <form method="post" action="./_submit/_new_course.php" enctype="multipart/form-data"><div class="modal animate__animated animate__slideInUp" id="createNew" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="createNewLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="createNewLabel">New Course</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn btn-dark btn-sm" data-bs-dismiss="modal" style="border-radius: 50px;"><i class="bi bi-x-lg"></i></button>
           </div>
           <div class="modal-body">
               <div class="container">
@@ -108,12 +108,12 @@ function time_elapsed_string($datetime, $full = false) {
                             <label class="form-label"><b>Course Category</b></label>
                             <select class="form-select" name="category" id="course_category" style="width: 250px;" required>
                                 <option value="Other" selected>-- No Select --</option>
-                                <option value="Finance">Finance</option>
-                                <option value="Technology">Technology</option>
-                                <option value="E-commerce">E-commerce</option>
-                                <option value="Food Delivery">Food Delivery</option>
-                                <option value="SAAS">SAAS</option>
-                                <option value="News & Media">News & Media</option>
+                                <?php
+                                    $all_cats = mysqli_query($conn, "SELECT * FROM `category_lists` ORDER BY `title` ASC");
+                                    while($a_cat = mysqli_fetch_assoc($all_cats)){
+                                        echo '<option value="'.$a_cat['c_id'].'">'.$a_cat['title'].'</option>';
+                                    }
+                                ?>
                             </select>
                         </div>
                         
@@ -121,14 +121,19 @@ function time_elapsed_string($datetime, $full = false) {
                         
                         <div class="mb-3"><label class="form-label"><b>Offered by (Company Name)</b></label><input type="text" class="form-control" name="offered_by" id="offered_by" placeholder="e.g. Google Inc." required></div>
                         
-                        <div class="app-logo mb-2"></div>
+                        <div class="w-100 mb-3">
+                            <div class="row" style="align-items: center;">
+                                <div class="col-6"><div class="app-logo mb-2"></div></div>
+                                <div class="col-6"><label class="form-label"><b>Company Logo</b></label><input type="file" class="form-control" name="company_logo" id="company_logo" accept="image/png, image/webp, image/jpeg" required></div>
+                            </div>
+                        </div>
                         
-                        <div class="mb-3"><label class="form-label"><b>Company Logo (URL)</b></label><input type="text" class="form-control" name="company_logo" id="company_logo" required></div>
-                        
-                        <div class="app-banner mb-2"></div>
-                        
-                        <div class="mb-3"><label class="form-label"><b>Course Thumbnail (URL)</b></label><input type="text" class="form-control" name="course_banner" id="course_banner" required></div>
-                        
+                        <div class="w-100 mb-3">
+                            <div class="row" style="align-items: center;">
+                                <div class="col-6"><div class="app-banner mb-2"></div></div>
+                                <div class="col-6"><label class="form-label"><b>Course Thumbnail</b></label><input type="file" class="form-control" name="course_banner" accept="image/png, image/webp, image/jpeg" id="course_banner" required></div>
+                            </div>
+                        </div>
                         
                         <div class="mb-3"><label class="form-label"><b><i class="bi bi-youtube" style="color: red;"></i>&nbsp;YouTube Video URL</b></label><input type="text" class="form-control" name="yt_url" id="yt_url" placeholder="e.g. https://www.youtube.com/watch?v=slFs42ax-Jg"></div>
                         
@@ -140,7 +145,7 @@ function time_elapsed_string($datetime, $full = false) {
                                 <div class="card course-card" style="cursor: pointer;">
                                 <div class="card-thumb" id="preview-thumb"></div>
                                 <div class="card-body p-2">
-                                    <div class="w-100"><b id="preview-title">Course Title</b></div>
+                                    <div class="w-100"><b id="preview-title" class="text-deco-1">Course Title</b></div>
                                     <div class="w-100 mt-1" style="font-size: 12px; color: #666;"><i class="bi bi-stopwatch" style="color: #F6635C;"></i>&nbsp;&nbsp;<span id="preview-time">X time</span></div>
                                     <div class="w-100 mt-2" style="display: flex; align-items: center;">
                                         <img id="preview-c-logo" src="https://dummyimage.com/250x250" height="30px" width="30px" style="border-radius: 30px; padding: 2px;">
@@ -169,10 +174,14 @@ function time_elapsed_string($datetime, $full = false) {
     <style>
         .form-control{
             border-radius: 0px;
+        }
+        .form-select{
+            border-radius: 0px;
         }  
         .app-logo{
             height: 100px;
             width: 100px;
+            border: 1px solid #ccc;
             background: #ddd;
             background-repeat: no-repeat;
             background-size: cover;
@@ -180,6 +189,7 @@ function time_elapsed_string($datetime, $full = false) {
             border-radius: 7px;
         }.app-banner{
             width: 250px;
+            border: 1px solid #ccc;
             aspect-ratio: 16 / 9;
             background: #ddd;
             background-repeat: no-repeat;
@@ -207,19 +217,35 @@ function time_elapsed_string($datetime, $full = false) {
         
         $(document).ready(function(){
             
-            $("#company_logo").change(function(){
+            /*$("#company_logo").change(function(){
                 let app_logo = $("#company_logo").val();
                 
                 $(".app-logo").css({backgroundImage: "url("+app_logo+")"});
                 $("#preview-c-logo").attr('src', app_logo);
-            });
+            });*/
             
-            $("#course_banner").change(function(){
+            company_logo.onchange = evt => {
+              const [file] = company_logo.files
+              if (file) {
+                $(".app-logo").css({backgroundImage: "url("+URL.createObjectURL(file)+")"});
+                $("#preview-c-logo").attr('src', URL.createObjectURL(file));
+              }
+            }
+            
+            /*$("#course_banner").change(function(){
                 let app_banner = $("#course_banner").val();
                 
                 $(".app-banner").css({backgroundImage: "url("+app_banner+")"});
                 $("#preview-thumb").css({backgroundImage: "url("+app_banner+")"});
-            });
+            });*/
+            
+            course_banner.onchange = evt => {
+              const [file] = course_banner.files
+              if (file) {
+                $(".app-banner").css({backgroundImage: "url("+URL.createObjectURL(file)+")"});
+                $("#preview-thumb").css({backgroundImage: "url("+URL.createObjectURL(file)+")"});
+              }
+            }
             
             $("#yt_url").change(function(){
                 let yt_url = $("#yt_url").val();
