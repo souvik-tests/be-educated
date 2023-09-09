@@ -79,7 +79,7 @@ include './_config/_conn.php';
     <div class="w-100 mt-5 pt-5 pb-5" style="background: #FFE2DE;">
     <div class="container">
         <div class="row" style="align-items: center;">  
-            <div class="col-md-6">
+            <div class="col-md-6 mb-3">
                 <div class="w-100">
                     <h1><b>Browse<br>By Category</b></h1>
                     <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
@@ -92,10 +92,10 @@ include './_config/_conn.php';
                     
                     $cat_lists = mysqli_query($conn, "SELECT DISTINCT cat.c_id, cat.title, COUNT(c.course_id) as courses, cat.created_at FROM category_lists as cat, course_lists as c WHERE cat.c_id = c.category_id GROUP BY cat.c_id ORDER BY cat.created_at DESC");
                     while($ct_lst = mysqli_fetch_assoc($cat_lists)){
-                        echo '<div class="col-6 mb-3">
+                        echo '<div class="col-md-6 mb-3">
                                 <div class="category-card">
                                     <div class="category-image" style="background-image: url(./_data/_images/'.$ct_lst['c_id'].'-category_banner.webp);"></div>
-                                    <div class="ms-2"><span><b>'.$ct_lst['title'].'</b><br></span><span style="font-size: 12px; color: #E4433B;">'.$ct_lst['courses'].' courses</span></div>
+                                    <div class="ms-2"><span><b style="font-size: 14px;">'.$ct_lst['title'].'</b><br></span><span style="font-size: 12px; color: #E4433B;">'.$ct_lst['courses'].' courses</span></div>
                                 </div>
                             </div>';
                     }

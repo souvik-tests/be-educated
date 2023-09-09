@@ -63,7 +63,7 @@ function time_elapsed_string($datetime, $full = false) {
                 while($a_row = mysqli_fetch_assoc($apps)){
                     echo '<div class="col-md-3 mb-3">
                     <div class="card app-card" style="position: relative;">
-                        <div class="p-2 m-2" style="position: absolute; top: 0; right: 0; background: #ffffff; border-radius: 5px; box-shadow: 1px 1px 10px rgba(0,0,0,0.3);"><button class="btn btn-primary btn-sm"><i class="bi bi-pencil-fill"></i></button><button class="btn btn-danger btn-sm ms-2"><i class="bi bi-trash-fill"></i></button></div>
+                        <div class="p-2 m-2" style="position: absolute; top: 0; right: 0; background: #ffffff; border-radius: 5px; box-shadow: 1px 1px 10px rgba(0,0,0,0.3);"><button class="btn btn-primary btn-sm" onclick="update_this_course(&apos;'.$a_row['course_id'].'&apos;)"><i class="bi bi-pencil-fill"></i></button><!--<button class="btn btn-danger btn-sm ms-2"><i class="bi bi-trash-fill"></i></button>--></div>
                         <div class="card-thumb" style="background-image: url(../_data/_images/'.$a_row['course_id'].'-thumbnail.webp)"></div>
                         <div class="card-body p-3">
                             <div class="row" style="align-items: center;">
@@ -97,17 +97,19 @@ function time_elapsed_string($datetime, $full = false) {
                 <div class="row">
                     <div class="col-md-6 mb-3" style="height: 400px; overflow-y: scroll;">
                         
-                        <div class="mb-3"><label class="form-label"><b>Course Title</b></label><input type="text" class="form-control" name="title" id="course_title" required></div>
+                        <div class="mb-3"><label class="form-label"><b>Course Title</b></label><input type="text" class="form-control" name="title" placeholder="Title of Your Course" id="course_title" required></div>
+                        
+                        <div class="mb-3"><label class="form-label"><b>Permalink</b></label><input type="text" class="form-control" name="alias" id="course_alias" placeholder="e.g. your-title" style="width: 80%;" required></div>
                         
                         <div class="mb-3">
                             <label class="form-label"><b>Course Description</b></label>
-                            <textarea class="form-control" style="height: 200px;" name="description" id="course_desc" required></textarea>
+                            <textarea class="form-control" style="height: 200px;" name="description" id="course_desc" placeholder="Description of your course" required></textarea>
                         </div>
                         
                         <div class="mb-3">
                             <label class="form-label"><b>Course Category</b></label>
                             <select class="form-select" name="category" id="course_category" style="width: 250px;" required>
-                                <option value="Other" selected>-- No Select --</option>
+                                <option value="none" selected>-- No Select --</option>
                                 <?php
                                     $all_cats = mysqli_query($conn, "SELECT * FROM `category_lists` ORDER BY `title` ASC");
                                     while($a_cat = mysqli_fetch_assoc($all_cats)){
@@ -155,6 +157,11 @@ function time_elapsed_string($datetime, $full = false) {
                             </div>
                                 
                                 <div class="mt-3">
+                                    <p><b>Permalink Preview</b></p>
+                                    <div class="w-100" style="font-size: 14px; color: #f2554e;">http://localhost/my-projects/other-files/other-clients/b-educated/<span id="preview_alias">your-title</span></div>
+                                </div>
+                                
+                                <div class="mt-3">
                                     <p><b>YouTube Preview</b></p><iframe id="preview_yt" width="300" height="200" src="https://www.youtube.com/embed/"></iframe>
                                 </div>
                             </div>
@@ -166,6 +173,53 @@ function time_elapsed_string($datetime, $full = false) {
           <div class="modal-footer">
             <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-main btn-sm"><b>Submit</b></button>
+          </div>
+        </div>
+      </div>
+    </div></form>
+    
+    <!-- updateNewModal -->
+    <form method="post" action="./_submit/_update_course.php" enctype="multipart/form-data"><div class="modal animate__animated animate__slideInUp" id="updateNew" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateNewLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="updateNewLabel">Edit Course</h1>
+            <button type="button" class="btn btn-dark btn-sm" data-bs-dismiss="modal" style="border-radius: 50px;"><i class="bi bi-x-lg"></i></button>
+          </div>
+          <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                        <input type="hidden" name="course_id" id="update_course_id">
+                        
+                        <div class="mb-3"><label class="form-label"><b>Course Title</b></label><input type="text" class="form-control" name="title" id="update_course_title" required></div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label"><b>Course Description</b></label>
+                            <textarea class="form-control" style="height: 200px;" name="description" id="update_course_desc" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label"><b>Course Category</b></label>
+                            <select class="form-select" name="category" id="update_course_category" style="width: 250px;" required>
+                                <!-- future -->
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3"><label class="form-label"><b>Time to Complete</b></label><input type="text" class="form-control" name="time_to_complete" id="update_time_to_complete" style="width: 200px;" placeholder="e.g. 3 weeks" required></div>
+                        
+                        <div class="mb-3"><label class="form-label"><b>Offered by (Company Name)</b></label><input type="text" class="form-control" name="offered_by" id="update_offered_by" placeholder="e.g. Google Inc." required></div>
+                        
+                        <div class="mb-3"><label class="form-label"><b><i class="bi bi-youtube" style="color: red;"></i>&nbsp;YouTube Video URL</b></label><input type="text" class="form-control" name="yt_url" id="update_yt_url" placeholder="e.g. https://www.youtube.com/watch?v=slFs42ax-Jg"></div>
+                        
+                    </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-main btn-sm"><b>Update</b></button>
           </div>
         </div>
       </div>
@@ -253,13 +307,34 @@ function time_elapsed_string($datetime, $full = false) {
                 $('#preview_yt').attr('src', 'https://www.youtube.com/embed/'+youtube_parser(yt_url));
             });
             
-            $("#course_title").change(function(){
-               $("#preview-title").html($("#course_title").val()); 
+            $("#course_title").keyup(function(){
+                $("#preview-title").html($("#course_title").val());
+                
+                let permalink = $("#course_title").val().toLowerCase().replaceAll(' ', '-');
+                $("#course_alias").val(permalink);
+                $("#preview_alias").html(permalink);
             });
             
-            $("#course_title").keyup(function(){
-               $("#preview-title").html($("#course_title").val()); 
+            $("#course_title").change(function(){
+                $("#preview-title").html($("#course_title").val());
+                
+                let permalink = $("#course_title").val().toLowerCase().replaceAll(' ', '-');
+                $("#course_alias").val(permalink);
+                $("#preview_alias").html(permalink);
             });
+            
+            
+            $("#course_alias").keyup(function(){
+                let permalink = $("#course_alias").val();
+                $("#preview_alias").html(permalink);
+            });
+            
+            $("#course_alias").change(function(){              
+                let permalink = $("#course_alias").val();
+                $("#preview_alias").html(permalink);
+            });
+            
+            
             
             $("#offered_by").change(function(){
                $("#preview-c-name").html($("#offered_by").val()); 

@@ -12,10 +12,11 @@ function generateRandomString($length) {
     return $randomString;
 }
 
-if(isset($_FILES['company_logo']) && isset($_FILES['course_banner']) && isset($_POST['title']) && isset($_POST['description']) && isset($_POST['category']) && isset($_POST['time_to_complete']) && isset($_POST['offered_by']) && isset($_POST['yt_url'])){
+if(isset($_FILES['company_logo']) && isset($_FILES['course_banner']) && isset($_POST['title']) && isset($_POST['alias']) && isset($_POST['description']) && isset($_POST['category']) && isset($_POST['time_to_complete']) && isset($_POST['offered_by']) && isset($_POST['yt_url'])){
     $course_id = generateRandomString(24);
     
     $title = $_POST['title'];
+    $alias = $_POST['alias'];
     $description = $_POST['description'];
     $category = $_POST['category'];
     $time_to_complete = $_POST['time_to_complete'];
@@ -36,7 +37,7 @@ if(isset($_FILES['company_logo']) && isset($_FILES['course_banner']) && isset($_
     imagedestroy($cb);
     
     if($cl_ok && $cb_ok){
-        $result = mysqli_query($conn, "INSERT INTO `course_lists` (`course_id`, `title`, `description`, `category`, `time_to_complete`, `offered_by`, `yt_url`) VALUES ('$course_id', '$title', '$description', '$category', '$time_to_complete', '$offered_by', '$yt_url')");
+        $result = mysqli_query($conn, "INSERT INTO `course_lists` (`course_id`, `title`, `alias`, `description`, `category_id`, `time_to_complete`, `offered_by`, `yt_url`) VALUES ('$course_id', '$title', '$alias', '$description', '$category', '$time_to_complete', '$offered_by', '$yt_url')");
     
         if($result){
             header('Location: ../courses.php');
