@@ -117,7 +117,7 @@ function time_elapsed_string($datetime, $full = false) {
             color: #000000;
             text-decoration: none;
         }a:hover{
-            color: #EB554D;
+            color: #09548c;
         }
         
         .course_logo{

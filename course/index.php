@@ -5,6 +5,10 @@ if(isset($_GET['alias'])){
     $alias = $_GET['alias'];
     $result = mysqli_query($conn, "SELECT * FROM `course_lists` WHERE `alias` = '$alias'");
     $result_array = mysqli_fetch_array($result);
+    
+    $this_course_id = $result_array['course_id'];
+    
+    $update_views = mysqli_query($conn, "UPDATE `course_lists` SET `views` = `views` + 1 WHERE `course_id` = '$this_course_id'");
 }else{
     header("Location: ../");
 }
@@ -46,7 +50,7 @@ function get_yt_id($url){
     <div class="container mb-4" style="margin-top: 100px">
         <div class="row">
             <div class="col-md-6 mb-3">
-                <div class="w-100"><span style="background: #F6635C; border-radius: 30px; color: #ffffff; font-size: 14px; padding: 5px 10px;"><b>
+                <div class="w-100"><span style="background: #497CCF; border-radius: 30px; color: #ffffff; font-size: 14px; padding: 5px 10px;"><b>
                     <?php 
                         if($result_array['category_id'] != "none" && $result_array['category_id'] != "" && $result_array['category_id'] != null){
                             $category_id = $result_array['category_id'];
@@ -97,7 +101,7 @@ function get_yt_id($url){
     
     <!-- popular courses area -->
     <div class="container"><p class="mt-5 mb-3"><b>Recommended Courses</b></p></div>
-    <div class="w-100 mb-3 pt-4 pb-5" style="background: #E8FFF9;">
+    <div class="w-100 mb-3 pt-4 pb-5" style="background: #edf7ff;">
         <div class="container">
             <div class="popular-carousel">
                 <?php

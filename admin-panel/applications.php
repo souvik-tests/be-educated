@@ -69,7 +69,7 @@ function time_elapsed_string($datetime, $full = false) {
                                 echo '<span class="badge rounded-pill text-bg-danger" style="position: absolute; top: 0; right: 0; margin-top: 10px; margin-right: 10px;">NEW</span>';
                             }
                         
-                            echo '<div class="card-body"><h5 style="color: #EB554D;"><b>'.$a_row['name'].'</b></h5>
+                            echo '<div class="card-body"><h5 style="color: #09548c;"><b>'.$a_row['name'].'</b></h5>
                             <div><b><span style="font-size: 14px; color: #666;"><i class="bi bi-telephone-fill"></i>&nbsp;'.$a_row['mobile'].'</span></b>
                             
                             <div class="w-100 mt-2 mb-2 p-1" style="border: 1px solid #ccc; border-radius: 7px;">
@@ -125,7 +125,7 @@ function time_elapsed_string($datetime, $full = false) {
             color: #000000;
             text-decoration: none;
         }a:hover{
-            color: #EB554D;
+            color: #09548c;
         }
         
         .course_logo{

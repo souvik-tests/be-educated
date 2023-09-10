@@ -11,7 +11,7 @@ include('../_config/_conn.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <meta name="googlebot" content="noindex">
-    <title>Analytics</title>
+    <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/styles.css?ref=<?php echo time(); ?>">
   </head>
@@ -20,7 +20,7 @@ include('../_config/_conn.php');
     <nav class="navbar bg-body-tertiary fixed-top" style="box-shadow: 1px 1px 10px rgba(0,0,0,0.1);">
       <div class="container">
         <div class="navbar-brand" style="display: flex; align-items: center;">
-            <img src="../assets/logo2.webp" width="35" height="35">
+            <img src="https://demo.bytestech.xyz/assets/logo.webp" height="35px" width="35px" style="border: 2px solid #6e99df; border-radius: 35px;">
             <b class="ms-2">Admin Panel</b>
         </div>
       </div>

@@ -2,8 +2,8 @@
 
 echo '<nav class="navbar fixed-top bg-body-tertiary">
       <div class="container">
-        <a class="navbar-brand" href="#" style="display: flex; align-items: center; justify-content: flex-start;">
-            <img src="http://localhost/my-projects/other-files/other-clients/b-educated/assets/logo2.webp" height="40px">
+        <a class="navbar-brand" href="https://demo.bytestech.xyz/" style="display: flex; align-items: center; justify-content: flex-start;">
+            <img src="https://demo.bytestech.xyz/assets/logo.webp" height="40px" width="40px" style="border: 2px solid #6e99df; border-radius: 40px;">
             <b class="ms-2">BeEducated</b>
         </a>
         <div id="nav-pc">

@@ -63,8 +63,11 @@ function time_elapsed_string($datetime, $full = false) {
                 while($a_row = mysqli_fetch_assoc($apps)){
                     echo '<div class="col-md-3 mb-3">
                     <div class="card app-card" style="position: relative;">
-                        <div class="p-2 m-2" style="position: absolute; top: 0; right: 0; background: #ffffff; border-radius: 5px; box-shadow: 1px 1px 10px rgba(0,0,0,0.3);"><button class="btn btn-primary btn-sm" onclick="update_this_course(&apos;'.$a_row['course_id'].'&apos;)"><i class="bi bi-pencil-fill"></i></button><!--<button class="btn btn-danger btn-sm ms-2"><i class="bi bi-trash-fill"></i></button>--></div>
-                        <div class="card-thumb" style="background-image: url(../_data/_images/'.$a_row['course_id'].'-thumbnail.webp)"></div>
+                        
+                        <div class="p-2 m-2" style="position: absolute; top: 0; right: 0; background: #ffffff; border-radius: 5px; box-shadow: 1px 1px 10px rgba(0,0,0,0.3); z-index: 9;"><button class="btn btn-primary btn-sm" onclick="update_this_course(&apos;'.$a_row['course_id'].'&apos;)"><i class="bi bi-pencil-fill"></i></button><!--<button class="btn btn-danger btn-sm ms-2"><i class="bi bi-trash-fill"></i></button>--></div>
+                        
+                        <div class="card-thumb" style="background-image: url(../_data/_images/'.$a_row['course_id'].'-thumbnail.webp); position: relative;"><span class="badge rounded-pill text-bg-light" style="position: absolute; bottom: 0; left: 0; margin-bottom: 10px; margin-left: 10px;"><i class="bi bi-eye-fill"></i>&nbsp;'.$a_row['views'].'</span></div>
+                        
                         <div class="card-body p-3">
                             <div class="row" style="align-items: center;">
                                 <div class="col-2"><img src="../_data/_images/'.$a_row['course_id'].'-company_logo.webp" height="40px" width="40px" style="border-radius: 40px;"></div>
@@ -148,7 +151,7 @@ function time_elapsed_string($datetime, $full = false) {
                                 <div class="card-thumb" id="preview-thumb"></div>
                                 <div class="card-body p-2">
                                     <div class="w-100"><b id="preview-title" class="text-deco-1">Course Title</b></div>
-                                    <div class="w-100 mt-1" style="font-size: 12px; color: #666;"><i class="bi bi-stopwatch" style="color: #F6635C;"></i>&nbsp;&nbsp;<span id="preview-time">X time</span></div>
+                                    <div class="w-100 mt-1" style="font-size: 12px; color: #666;"><i class="bi bi-stopwatch" style="color: #09548C;"></i>&nbsp;&nbsp;<span id="preview-time">X time</span></div>
                                     <div class="w-100 mt-2" style="display: flex; align-items: center;">
                                         <img id="preview-c-logo" src="https://dummyimage.com/250x250" height="30px" width="30px" style="border-radius: 30px; padding: 2px;">
                                         <span style="font-size: 12px;" class="ms-1" id="preview-c-name">Company Inc.</span>
@@ -158,7 +161,7 @@ function time_elapsed_string($datetime, $full = false) {
                                 
                                 <div class="mt-3">
                                     <p><b>Permalink Preview</b></p>
-                                    <div class="w-100" style="font-size: 14px; color: #f2554e;">http://localhost/my-projects/other-files/other-clients/b-educated/<span id="preview_alias">your-title</span></div>
+                                    <div class="w-100" style="font-size: 14px; color: #09548C;">https://demo.bytestech.xyz/course/<span id="preview_alias">your-title</span></div>
                                 </div>
                                 
                                 <div class="mt-3">

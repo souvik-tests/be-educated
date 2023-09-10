@@ -25,7 +25,7 @@ echo '<script>
                 $(".newsletter-submit").html(\'<span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span class="visually-hidden" role="status">Loading...</span>\');
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost/my-projects/other-files/other-clients/b-educated/_req_to/_subscribe.php",
+                    url: "https://demo.bytestech.xyz/_req_to/_subscribe.php",
                     data: {email: email},
                     success: function(data){
                         if(data == "success"){

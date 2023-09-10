@@ -37,7 +37,7 @@ if(isset($_FILES['company_logo']) && isset($_FILES['course_banner']) && isset($_
     imagedestroy($cb);
     
     if($cl_ok && $cb_ok){
-        $result = mysqli_query($conn, "INSERT INTO `course_lists` (`course_id`, `title`, `alias`, `description`, `category_id`, `time_to_complete`, `offered_by`, `yt_url`) VALUES ('$course_id', '$title', '$alias', '$description', '$category', '$time_to_complete', '$offered_by', '$yt_url')");
+        $result = mysqli_query($conn, "INSERT INTO `course_lists` (`course_id`, `title`, `alias`, `description`, `category_id`, `time_to_complete`, `offered_by`, `yt_url`, `views`) VALUES ('$course_id', '$title', '$alias', '$description', '$category', '$time_to_complete', '$offered_by', '$yt_url', '0')");
     
         if($result){
             header('Location: ../courses.php');

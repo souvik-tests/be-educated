@@ -26,7 +26,7 @@ if(isset($_GET)){
 
     if($result->status == "success"){
 
-        include('../../_config/_conn.php');
+        include('../_config/_conn.php');
 
         $track_id = generateRandomString(34);
 
