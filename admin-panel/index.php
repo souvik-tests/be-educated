@@ -28,7 +28,28 @@ include('../_config/_conn.php');
       
     <div class="container" style="margin-top: 85px;">
         <div class="row">
-            <div class="col-md-4 mb-3"><div class="card h-100 feat_card"><div class="card-body"><p class="-text-muted">Total Visitors</p><h4><b><?php echo number_format(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM `traffic_track`"))); ?></b></h4><div class="w-100" style="text-align: right;"><a href="./analytics.php" style="text-decoration: none;"><button class="btn btn-main btn-sm"><b><i class="bi bi-bar-chart-fill"></i>&nbsp;&nbsp;Analytics</b></button></a></div></div></div></div>
+            <div class="col-md-4 mb-3"><div class="card h-100 feat_card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="-text-muted">Traffic</p><h4><b><?php echo number_format(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM `traffic_track`"))); ?></b></h4>
+                        </div>
+                        <div class="col-6">
+                            <p class="-text-muted">Subscribers</p><h4><b><?php echo number_format(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM `subscriber_lists`"))); ?></b></h4>
+                        </div>
+                    </div>
+                    
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="./analytics.php" style="text-decoration: none;"><button class="btn btn-sm btn-main w-100"><b><i class="bi bi-bar-chart-fill"></i>&nbsp;&nbsp;Analytics</b></button></a>
+                            </div>
+                            <div class="col-6">
+                                <a href="./subscribers.php" style="text-decoration: none;"><button class="btn btn-sm btn-main w-100"><b><i class="bi bi-envelope-fill"></i>&nbsp;&nbsp;Subscribers</b></button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div></div></div>
             
             <div class="col-md-4 mb-3"><div class="card h-100 feat_card">
                 <div class="card-body">
