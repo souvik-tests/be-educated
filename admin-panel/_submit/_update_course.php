@@ -6,7 +6,7 @@ if(isset($_POST['course_id']) && isset($_POST['title']) && isset($_POST['descrip
     $course_id = $_POST['course_id'];
     
     $title = $_POST['title'];
-    $description = $_POST['description'];
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
     $category = $_POST['category'];
     $time_to_complete = $_POST['time_to_complete'];
     $offered_by = $_POST['offered_by'];

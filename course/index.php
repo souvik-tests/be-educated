@@ -1,11 +1,15 @@
 <?php
-if(isset($_GET['id'])){
+if(isset($_GET['alias'])){
     include '../_config/_conn.php';
     
-    $course_id = $_GET['id'];
-    $result = mysqli_query($conn, "SELECT c.*, cat.title as category FROM `course_lists` as c, `category_lists` as cat WHERE c.category_id = cat.c_id AND c.course_id = '$course_id'");
+    $alias = $_GET['alias'];
+    $result = mysqli_query($conn, "SELECT * FROM `course_lists` WHERE `alias` = '$alias'");
     $result_array = mysqli_fetch_array($result);
 }else{
+    header("Location: ../");
+}
+
+if($_SERVER['QUERY_STRING'] == "alias="){
     header("Location: ../");
 }
 
@@ -42,7 +46,17 @@ function get_yt_id($url){
     <div class="container mb-4" style="margin-top: 100px">
         <div class="row">
             <div class="col-md-6 mb-3">
-                <div class="w-100"><span style="background: #F6635C; border-radius: 30px; color: #ffffff; font-size: 14px; padding: 5px 10px;"><b><?php echo $result_array['category']; ?></b></span></div>
+                <div class="w-100"><span style="background: #F6635C; border-radius: 30px; color: #ffffff; font-size: 14px; padding: 5px 10px;"><b>
+                    <?php 
+                        if($result_array['category_id'] != "none" && $result_array['category_id'] != "" && $result_array['category_id'] != null){
+                            $category_id = $result_array['category_id'];
+                            $category_array = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `category_lists` WHERE `c_id` = '$category_id'"));
+                            echo $category_array['title'];
+                        }else{
+                            echo "Other";
+                        }
+                    ?>
+                    </b></span></div>
                 <h3 class="mt-4"><b><?php echo $result_array['title']; ?></b></h3>
                 <div class="w-100 mt-2" style="display: flex; align-items: center;">
                     <img src="../_data/_images/<?php echo $result_array['course_id']; ?>-company_logo.webp" height="30px" width="30px" style="border-radius: 30px; padding: 2px;">
@@ -92,7 +106,7 @@ function get_yt_id($url){
                 while($popular_row = mysqli_fetch_assoc($popular)){
                     if($popular_row['course_id'] != $result_array['course_id']){
                         echo '<div class="carousel-cell me-3">
-                            <div class="card course-card h-100" onclick="location.href=&apos;./?id='.$popular_row['course_id'].'&apos;" style="cursor: pointer;">
+                            <div class="card course-card h-100" onclick="location.href=&apos;./'.$popular_row['alias'].'&apos;" style="cursor: pointer;">
                                 <div class="card-thumb" style="background-image: url(../_data/_images/'.$popular_row['course_id'].'-thumbnail.webp)"></div>
                                 <div class="card-body p-2">
                                     <div class="w-100"><b class="text-deco-1">'.$popular_row['title'].'</b></div>
@@ -111,7 +125,6 @@ function get_yt_id($url){
             </div>
         </div>  
     </div>
-    
       
     <!-- newsletter area -->
     <?php include '../_ui/_newsletter.php'; ?>
@@ -131,6 +144,9 @@ function get_yt_id($url){
     <!-- flickity -->
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script>
+        
+        const page_course_id = "<?php echo $result_array['course_id']; ?>";
+        
         $(document).ready(function(){
             if(localStorage.getItem('apply_name') != undefined && localStorage.getItem('apply_mobile') != undefined){
                 $("#apply_name").val(localStorage.getItem('apply_name'));
@@ -162,9 +178,9 @@ function get_yt_id($url){
                     $.ajax({
                         type: "POST",
                         url: '../_req_to/_apply.php',
-                        data: {name: name, mobile: mobile},
+                        data: {name: name, mobile: mobile, applied_for: page_course_id},
                         success: function(data){
-                            console.log(data);
+                            //console.log(data);
                             if(data == "success"){
                                 $("#apply-details-area").html('<div class="w-100 mt-3 mb-3 text-center"><p class="text-center"><i class="bi bi-check-circle-fill" style="font-size: 50px; color: #46b860;"></i></p><b>Your application submitted successfully!</b><br><span class="text-muted" style="font-size: 12px;">Please wait, we will contact you soon.</span></div>');
                                 

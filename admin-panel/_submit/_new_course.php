@@ -17,7 +17,7 @@ if(isset($_FILES['company_logo']) && isset($_FILES['course_banner']) && isset($_
     
     $title = $_POST['title'];
     $alias = $_POST['alias'];
-    $description = $_POST['description'];
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
     $category = $_POST['category'];
     $time_to_complete = $_POST['time_to_complete'];
     $offered_by = $_POST['offered_by'];

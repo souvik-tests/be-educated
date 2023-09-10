@@ -18,22 +18,16 @@ include('../_config/_conn.php');
   </head>
   <body>
     
-    <nav class="navbar bg-body-tertiary" style="background: var(--main) !important;">
+    <nav class="navbar bg-body-tertiary" style="box-shadow: 1px 1px 10px rgba(0,0,0,0.1);">
       <div class="container">
-        <a class="navbar-brand" href="#" style="display: flex; align-items: center;">
-            <img src="../assets/uttirna-logo.webp" class="ms-3" alt="Bootstrap" width="30" height="30" style="border-radius: 30px;">
-            <b class="ms-2" style="color: #ffffff;">Analitycs</b>
-        </a>
+        <div class="navbar-brand" style="display: flex; align-items: center;">
+            <button class="btn btn-dark btn-sm" style="border-radius: 50px;" onclick="location.href='./'"><i class="bi bi-arrow-left"></i></button>
+            <b class="ms-2">Analytics</b>
+        </div>
       </div>
     </nav>
       
-    <div class="container mt-3">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="./">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Traffic Analytics</li>
-          </ol>
-        </nav>
+    <div class="container mt-4">
         <div class="row">
             <div class="col-md-12 mb-3">
                 <div class="card"><div class="card-body"><div class="w-100"><canvas id="myChart" style="height: 300px; width: 100%;"></canvas></div></div></div>
@@ -72,10 +66,10 @@ include('../_config/_conn.php');
     <style>
         body{
             font-family: 'Poppins', sans-serif !important;
-            background: #dedede !important;
         }.card{
             border-radius: 10px !important;
             border: 0px solid !important;
+            background: #F0F3F8;
         }
     </style>
     
